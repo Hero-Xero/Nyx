@@ -1,0 +1,44 @@
+{
+  "ui_settings": {
+    "title": "COMMAND CENTER",
+    "description": "Primary Infrastructure Control",
+    "image_url": "https://images.pexels.com/photos/1146708/pexels-photo-1146708.jpeg",
+    "thumbnail_url" : "https://images.pexels.com/photos/1146708/pexels-photo-1146708.jpeg",
+    "footer": "Nyx Core v1.0"
+  },
+
+  "quick_links": [
+    { "label": "Proxmox", "url": "http://192.168.1.x:8006"},
+    { "label": "Portainer", "url": "http://192.168.1.x:9000"},
+    { "label": "Router", "url": "http://192.168.1.1"}
+  ],
+
+  "targets": {
+    "import_all_hosts": true,
+    "import_specific_hosts": [
+      "server_identifier"
+    ],
+    "manual_additions": [
+      {
+        "name": "google_dns",
+        "display_name": "🌍 Google DNS",
+        "ip": "8.8.8.8"
+      }
+    ]
+  },
+
+  "actions": [
+    {
+      "id": "ping",
+      "label": "📡 Ping",
+      "description": "Check basic connectivity",
+      "type": "network"
+    },
+    {
+      "id": "wol",
+      "label": "⚡ Wake Up",
+      "description": "Send Magic Packet",
+      "type": "network"
+    }
+  ]
+}

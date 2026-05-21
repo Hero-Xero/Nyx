@@ -1,0 +1,84 @@
+[
+  {
+    "name": "disk-usage",
+    "description": "Check the remaining storage space on the server",
+    "command": "df",
+    "fixed_flags" : "-h --total",
+    "flags": [
+      {
+        "name": "drive_type",
+        "description": "Filter by a specific file system type",
+        "flag": "-t",
+        "type": "STRING",
+        "choices": {
+          "Main NVMe (ext4)": "ext4",
+          "Storage Pool (zfs)": "zfs",
+          "RAM Disks (tmpfs)": "tmpfs"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Duf",
+    "description": "Check disk space usage",
+    "command": "duf",
+    "fixed_flags": "-style unicode -theme light",
+    "is_image": true
+  },
+  {
+    "name": "uptime",
+    "description": "how long its been up..duh",
+    "command": "uptime",
+    "is_image": false
+  },
+  {
+    "name": "dysk",
+    "description": "check dysk sth",
+    "command": "dysk",
+    "fixed_flags": "--color yes",
+    "is_image": true
+  },
+  {
+    "name": "fastfetch",
+    "description": "fetch it fast",
+    "command": "fastfetch",
+    "fixed_flags" : "--logo-position top --color red",
+    "is_image": true
+  },
+  {
+    "name": "list-block",
+    "description": "List Block Devices",
+    "command": "lsblk",
+    "is_image": true
+  },
+  {
+    "name": "docker",
+    "description": "Docker stuff",
+    "command": "docker",
+    "is_image": true,
+    "subcommands": [
+      {
+        "name": "restart",
+        "description": "Restart a container",
+        "subcommand": "restart",
+        "arguments": [
+          {
+            "name": "container",
+            "description": "Which container?",
+            "type": "STRING",
+            "required": true,
+            "choices": {
+              "Media Server": "jellyfin",
+              "Sonarr": "sonarr"
+            }
+          }
+        ]
+      },
+      {
+        "name": "ps",
+        "description": "pspspsps",
+        "subcommand": "ps"
+      }
+    ]
+  }
+]

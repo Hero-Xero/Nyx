@@ -1,0 +1,12 @@
+[
+  {
+    "display_name": "My-Server",
+    "name": "server_identifier",
+    "user": "your-username",
+    "ip": "192.168.1.10",
+    "mac": "AA:BB:CC:DD:EE:FF",
+    "port": "22",
+    "os" : "linux",
+    "key-path": "/home/user/.ssh/id_rsa"
+  }
+]

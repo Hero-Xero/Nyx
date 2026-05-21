@@ -1,0 +1,48 @@
+# --- Spring Boot & Maven ---
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.jar
+HELP.md
+
+# --- IDEs ---
+.idea/
+.vscode/
+*.iws
+*.iml
+*.ipr
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- Project Specific (SENSITIVE) ---
+.env
+/config/
+/logs/
+/ControlPanel
+*.java.text
+/processes
+/commands/
+NYX_PROJECT.md
+
+# --- Documentation ---
+# We ignore the separate mermaid files, keeping only the main README
+architecture.md
+command_pipeline.md
+slash_command_flow.md
+slash_command_workflow.md
+startup_pipeline.md
+
+# --- Configuration Handling ---
+# We keep the templates in resources, but ignore the actual runtime properties
+application.properties
+!src/main/resources/application.properties
+!src/main/resources/defaults/*.json
+!src/main/resources/defaults/*.properties
