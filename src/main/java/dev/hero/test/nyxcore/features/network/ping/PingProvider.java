@@ -1,10 +1,10 @@
 package dev.hero.test.nyxcore.features.network.ping;
 
-import java.io.IOException;
+import dev.hero.test.nyxcore.dto.ProviderResult;
 
 public interface PingProvider {
     /**
-     * Executes a system ping and returns the raw output.
+     * Executes a system ping and returns a ProviderResult describing the outcome.
      */
-    String ping(String ip);
+    ProviderResult ping(String ip);
 }

@@ -1,14 +1,16 @@
 package dev.hero.test.nyxcore.features.network.wol;
 
-import dev.hero.test.nyxcore.config.ProviderConstants;
-import dev.hero.test.nyxcore.exceptions.ActionExecutionException;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
+
+import dev.hero.test.nyxcore.config.ProviderConstants;
+import dev.hero.test.nyxcore.exceptions.ActionExecutionException;
+import dev.hero.test.nyxcore.dto.ProviderResult;
 
 @Component
 @ConditionalOnProperty(
@@ -19,7 +21,7 @@ import java.net.InetAddress;
 public class LocalWolProvider implements WolProvider {
 
     @Override
-    public void wake(String macStr) {
+    public ProviderResult wake(String macStr) {
         byte[] macBytes = getMacBytes(macStr);
         byte[] bytes = new byte[6 + 16 * macBytes.length];
 
@@ -39,6 +41,7 @@ public class LocalWolProvider implements WolProvider {
                 socket.setBroadcast(true);
                 socket.send(packet);
             }
+            return ProviderResult.success("Wake-on-LAN magic packet sent to " + macStr, -1, "");
         } catch (IOException e) {
             throw new ActionExecutionException("Failed to send Wake-on-LAN packet.", e);
         }

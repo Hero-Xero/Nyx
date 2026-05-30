@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.hero.test</groupId>
-    <artifactId>nyx-core</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>nyx-core</name>
-    <description>nyx-core</description>
+    <artifactId>nyx</artifactId>
+    <version>1.0.0</version>
+    <name>Nyx</name>
+    <description>Remote Server Management Tool</description>
     <url/>
     <licenses>
         <license/>
@@ -78,7 +78,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-
+        <!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>7.0.7</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-integration</artifactId>

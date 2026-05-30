@@ -1,5 +1,7 @@
 package dev.hero.test.nyxcore.services.engine.commands;
 
+import dev.hero.test.nyxcore.annotations.MonitoredAction;
+import dev.hero.test.nyxcore.dto.ExecutionResult;
 import dev.hero.test.nyxcore.exceptions.ActionExecutionException;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,8 @@ public class CommandExecutionerService {
 
     private static final int TIMEOUT_SECONDS = 15;
 
-    // clean signature enforced
-    public String execute(ProcessBuilder pb) {
+    @MonitoredAction
+    public ExecutionResult execute(ProcessBuilder pb) {
         try {
             Process process = pb.start();
 
@@ -67,7 +69,7 @@ public class CommandExecutionerService {
                 throw new ActionExecutionException("Command failed during execution.", process.exitValue(), result);
             }
 
-            return result;
+            return ExecutionResult.pass(result);
 
         } catch (IOException e) {
             throw new ActionExecutionException("Fatal I/O error trying to execute command.", e);

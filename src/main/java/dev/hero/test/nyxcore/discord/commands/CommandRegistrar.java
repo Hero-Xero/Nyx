@@ -40,7 +40,7 @@ public class CommandRegistrar {
     private SlashCommandData buildSlashCommand(CommandDto cmd, OptionData deviceOption) {
         SlashCommandData slashCmd = Commands.slash(cmd.getName().toLowerCase().replaceAll("[^A-Za-z0-9_-]", ""), cmd.getDescription());
 
-        // THE FORK: Does this command have subcommands?
+        // Does this command have subcommands? A question we all ponder ...
         if (cmd.getSubcommands() != null && !cmd.getSubcommands().isEmpty()) {
             List<SubcommandData> subCmdDataList = new ArrayList<>();
 

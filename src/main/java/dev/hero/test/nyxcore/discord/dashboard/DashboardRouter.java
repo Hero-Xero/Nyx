@@ -1,17 +1,19 @@
 package dev.hero.test.nyxcore.discord.dashboard;
 
-import dev.hero.test.nyxcore.dto.DashboardDto;
-import dev.hero.test.nyxcore.dto.ExecutionResult;
-import dev.hero.test.nyxcore.dto.HostDto;
-import dev.hero.test.nyxcore.discord.dashboard.actionhandlers.DashboardActionHandler;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Service;
+
+import dev.hero.test.nyxcore.discord.dashboard.actionhandlers.DashboardActionHandler;
+import dev.hero.test.nyxcore.dto.DashboardDto;
+import dev.hero.test.nyxcore.dto.ExecutionResult;
+import dev.hero.test.nyxcore.dto.HostDto;
+import dev.hero.test.nyxcore.services.ActionContext;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -35,12 +37,12 @@ public class DashboardRouter {
         }
 
         try {
+            // Set context for Aspect
+            ActionContext.set(action.id(), host.getName());
+            
             return handler.execute(host, action);
-        } catch (Exception e) {
-            log.error("CRITICAL ROUTER ERROR: Failed to execute action '{}' on host '{}'", action.id(), host.getName(), e);
-
-            publisher.publishEvent(e);
-            return ExecutionResult.fail("Internal Error: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+        } finally {
+            ActionContext.clear();
         }
     }
 }

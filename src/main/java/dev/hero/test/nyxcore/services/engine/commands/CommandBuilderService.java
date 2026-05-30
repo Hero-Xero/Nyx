@@ -21,18 +21,15 @@ public class CommandBuilderService {
             rawCommand.append(" ").append(cmd.getFixedFlags());
         }
 
-        // Determine which flags and arguments we should be parsing
         List<CommandDto.FlagDefinition> activeFlags = cmd.getFlags();
         List<CommandDto.ArgumentDefinition> activeArgs = cmd.getArguments();
 
-        // If a subcommand was triggered, append it and use its specific flags/args
         if (triggeredSubcommand != null && cmd.getSubcommands() != null) {
             CommandDto.SubcommandDefinition subDef = cmd.getSubcommands().stream()
                     .filter(s -> s.getName().equalsIgnoreCase(triggeredSubcommand))
                     .findFirst().orElse(null);
 
             if (subDef != null) {
-                // use the explicit CLI subcommand string if provided, otherwise fallback to the name
                 String cliCommand = subDef.getSubcommand() != null ? subDef.getSubcommand() : subDef.getName();
                 rawCommand.append(" ").append(cliCommand);
 
@@ -41,7 +38,6 @@ public class CommandBuilderService {
             }
         }
 
-        // process the flags (Prefixes required)
         if (activeFlags != null) {
             for (OptionMapping option : options) {
                 CommandDto.FlagDefinition def = activeFlags.stream()
@@ -56,10 +52,9 @@ public class CommandBuilderService {
                         default -> rawCommand.append(" ").append(def.getFlag()).append(" ").append(option.getAsString());
                     }
                 }
-            };
+            }
         }
 
-        // process positional arguments (no prefixes, must go at the end)
         if (activeArgs != null) {
             for (CommandDto.ArgumentDefinition argDef : activeArgs) {
                 OptionMapping argOption = options.stream()
@@ -74,19 +69,7 @@ public class CommandBuilderService {
 
         StringBuilder finalPayload = new StringBuilder();
         finalPayload.append("export TERM=xterm-256color; export COLUMNS=1000; ");
-
-        if (cmd.isSudo()) {
-            String pass = host.getSudoPassword();
-            if (pass == null || pass.isBlank()) {
-                throw new IllegalArgumentException(String.format(
-                        "**Access Denied:** Command `%s` requires Sudo, but host `%s` has no password.",
-                        cmd.getName(), host.getName()
-                ));
-            }
-            finalPayload.append(String.format("echo '%s' | sudo -S -p '' %s", pass, rawCommand));
-        } else {
-            finalPayload.append(rawCommand);
-        }
+        finalPayload.append(rawCommand.toString()); // THIS WAS MISSING
 
         List<String> sshCmd = List.of(
                 "ssh", "-o", "StrictHostKeyChecking=no", "-o", "ConnectTimeout=5",

@@ -1,13 +1,15 @@
 package dev.hero.test.nyxcore.features.network.ping;
 
-import dev.hero.test.nyxcore.config.ProviderConstants;
-import dev.hero.test.nyxcore.exceptions.ActionExecutionException;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import dev.hero.test.nyxcore.config.ProviderConstants;
+import dev.hero.test.nyxcore.dto.ProviderResult;
+import dev.hero.test.nyxcore.exceptions.ActionExecutionException;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
@@ -19,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class LocalPingProvider implements PingProvider {
 
     @Override
-    public String ping(String ip) {
+    public ProviderResult ping(String ip) {
         if (ip == null || ip.isBlank()) {
             throw new IllegalArgumentException("IP address cannot be null or empty.");
         }
@@ -43,7 +45,7 @@ public class LocalPingProvider implements PingProvider {
                 throw new ActionExecutionException("Ping failed with exit code " + exitCode, exitCode, output);
             }
 
-            return output;
+            return ProviderResult.success(output, exitCode, output);
 
         } catch (IOException e) {
             throw new ActionExecutionException("Fatal I/O error trying to start ping process.", e);

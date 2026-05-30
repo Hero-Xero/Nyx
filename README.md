@@ -330,11 +330,11 @@ To summarize: you press a button, that button interaction goes to the router, th
 
 # Conclusion
 
-Now this project will contain many, many improvements and additions as long as I use it personally and still have passion for it, but I think the core is finished and this is a great V1.0. This isn't everything I have talked about; there's still more like `AlertsService` and the Alerts Channel, but those require refactoring and improvement as the current implementation is not sufficient enough and not very useful with the error messages either. There's also how the config files are loaded and how they are automatically created, but it's a small part of the app so not very much worth talking about at 5 AM. I shall talk about it in a future README update! So yeah, that is all for now.
+Now this project will contain many, many improvements and additions as long as I use it personally and still have passion for it, but I think the core is finished and this is a great V1.0. This isn't everything I have talked about; There's how the config files are loaded and how they are automatically created, I shall talk about it in a future README update! So yeah, that is all for now.
 
 # Improvements/Additions
 
-- [ ] More Robust Alert/Error handling in Alerts channel
+- [x] More Robust Alert/Error handling in Alerts channel
 - [ ] Hot-Reloading of configurations
 - [ ] Switch from ProcessBuilder to SSHJ for more control
 - [ ] Dockerization (Requires a bit of SSH Refactoring)

@@ -1,10 +1,10 @@
 package dev.hero.test.nyxcore.features.network.wol;
 
-import java.io.IOException;
+import dev.hero.test.nyxcore.dto.ProviderResult;
 
 public interface WolProvider {
     /**
-     * Sends a Wake-on-LAN magic packet to the specified MAC address.
+     * Sends a Wake-on-LAN magic packet to the specified MAC address and returns a ProviderResult.
      */
-    void wake(String macStr);
+    ProviderResult wake(String macStr);
 }
